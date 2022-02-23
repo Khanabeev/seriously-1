@@ -17,13 +17,11 @@ class VendingMachineRepository(AbstractRepository, ABC):
     def __init__(self):
         self.connection = get_connection()
 
-    def show_all(self):
-        stm = """
-            SELECT * FROM vending_machines
-        """
+    def get_all(self):
+        stm = "SELECT * FROM vending_machines"
         query = self.connection.execute(stm)
         cols = [column[0] for column in query.description]
-        result = pd.DataFrame.from_records(data=query.fetchall(), columns=cols, index='id')
+        result = pd.DataFrame.from_records(data=query.fetchall(), columns=cols)
 
         return tabulate(result, headers='keys', tablefmt='sqlite')
 

@@ -13,6 +13,9 @@ def put(ctx, amount):
     try:
         ctx.obj.cus.withdraw_balance(amount=amount)
         ctx.obj.vm.add_balance(amount=amount)
+
+        click.echo(f"Customer balance : {ctx.obj.cus.get_current_balance()}")
+        click.echo(f"Vending Machine balance : {ctx.obj.vm.get_current_balance()}")
     except ValueError:
         click.echo(f"Customer balance is not enough, current customer balance is: {ctx.obj.cus.get_current_balance()}")
     except NameError:
@@ -30,7 +33,7 @@ def show(ctx):
 def withdraw(ctx):
     try:
         if not ctx.obj.vm.is_balance_empty():
-            ctx.obj.cus.add_balance(ctx.obj.vm.withdraw_balance())
+            ctx.obj.cus.add_balance(ctx.obj.vm.withdraw_balance(ctx.obj.vm.get_current_balance()))
 
             click.echo(f"Customer balance : {ctx.obj.cus.get_current_balance()}")
             click.echo(f"Vending Machine balance : {ctx.obj.vm.get_current_balance()}")

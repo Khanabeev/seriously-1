@@ -18,16 +18,19 @@ class CustomerRepository(AbstractRepository, ABC):
     def __init__(self):
         self.connection = get_connection()
 
-    def show_all(self):
+    def get_all(self):
         pass
 
-    def first(self):
-        stm = """
-                    SELECT id, uid, balance FROM customers LIMIT 1
-                """
-        query = self.connection.execute(stm)
+    def first(self, uid: str = '') -> pd.DataFrame:
+        if uid == '':
+            stm = "SELECT id, uid, balance FROM customers LIMIT 1"
+            query = self.connection.execute(stm)
+        else:
+            stm = "SELECT id, uid, balance FROM customers WHERE uid=? LIMIT 1"
+            query = self.connection.execute(stm, (uid,))
+
         cols = [column[0] for column in query.description]
-        result = pd.DataFrame.from_records(data=query.fetchall(), columns=cols, index='id')
+        result = pd.DataFrame.from_records(data=query.fetchall(), columns=cols)
 
         return result
 
@@ -37,4 +40,8 @@ class CustomerRepository(AbstractRepository, ABC):
         self.connection.commit()
         self.connection.close()
 
-        return
+    def add_product(self, customer_id: int, product_id: int):
+        stm = "INSERT INTO customer_product (customer_id, product_id) VALUES (?,?) "
+        self.connection.execute(stm, (int(customer_id), int(product_id)))
+        self.connection.commit()
+        self.connection.close()

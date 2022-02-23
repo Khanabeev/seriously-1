@@ -37,3 +37,10 @@ class CustomerService:
 
     def get_current_balance(self) -> int:
         return self.current_customer.balance
+
+    def add_product(self, product_id: int):
+        self.customer_repository.add_product(product_id=product_id, customer_id=self.get_customer_id())
+
+    def get_customer_id(self):
+        vm_df = self.customer_repository.first(self.current_customer.uid)
+        return vm_df["id"].values[0]

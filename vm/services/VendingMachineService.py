@@ -1,4 +1,5 @@
-from vm.models.Product import *
+from tabulate import tabulate
+
 from vm.models.VendingMachine import VendingMachine
 from vm.repository.ProductRepository import ProductRepository
 from vm.repository.VendingMachineRepository import VendingMachineRepository
@@ -12,11 +13,17 @@ class VendingMachineService:
         self.current_vending_machine = self.__get_first_vending_machine()
 
     def select_product(self, product_id: int):
-        pass
+        product_df = self.get_product(product_id)
+        if len(product_df) > 0:
+            return product_df
+        else:
+            raise Exception('Product not exists')
 
     def show_all_products(self):
         vm_id = self.get_vending_machine_id()
-        return self.product_repository.show_all(vm_id)
+        result = self.product_repository.get_all(vm_id)
+
+        return tabulate(result, headers='keys', tablefmt='sqlite')
 
     def __get_first_vending_machine(self):
         vm_df = self.vm_repository.first()
@@ -33,9 +40,9 @@ class VendingMachineService:
         else:
             raise NameError('Amount should be positive number')
 
-    def withdraw_balance(self) -> int:
+    def withdraw_balance(self, amount: int = 0) -> int:
         balance = self.current_vending_machine.balance
-        self.current_vending_machine.balance = 0
+        self.current_vending_machine.balance -= amount
         self.update()
 
         return balance
@@ -49,3 +56,6 @@ class VendingMachineService:
     def get_vending_machine_id(self):
         vm_df = self.vm_repository.first(self.current_vending_machine.uid)
         return vm_df["id"].values[0]
+
+    def get_product(self, product_id):
+        return self.product_repository.get_product(product_id, self.get_vending_machine_id())
