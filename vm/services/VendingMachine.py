@@ -6,6 +6,7 @@ class VendingMachine:
 
     def __init__(self):
         self.product_repository = ProductRepository()
+        self.current_vending_machine_id = 1
 
     def add_products(self, product: Product):
         pass

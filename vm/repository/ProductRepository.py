@@ -3,6 +3,7 @@ import pandas as pd
 from abc import ABC
 from tabulate import tabulate
 from vm.config import PATH_DATABASE
+from vm.models.Product import Product
 
 from vm.repository.AbstractRepository import AbstractRepository
 
@@ -26,7 +27,7 @@ class ProductRepository(AbstractRepository, ABC):
 
         return tabulate(result, headers='keys', tablefmt='sqlite')
 
-    def add(self, repository):
+    def add(self, product: Product):
         pass
 
     def get(self, repository):

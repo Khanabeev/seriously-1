@@ -4,7 +4,7 @@ import abc
 class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
-    def add(self, repository):
+    def add(self, obj):
         raise NotImplementedError
 
     @abc.abstractmethod

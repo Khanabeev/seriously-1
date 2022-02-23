@@ -2,6 +2,13 @@ import os
 
 import click
 
+from vm.services.VendingMachine import VendingMachine
+
+
+class Context:
+    def __init__(self):
+        self.vm = VendingMachine()
+
 
 class ComplexCLI(click.MultiCommand):
     def list_commands(self, ctx):
@@ -21,6 +28,7 @@ class ComplexCLI(click.MultiCommand):
 
 
 @click.command(cls=ComplexCLI)
-def cli():
+@click.pass_context
+def cli(ctx):
     """ === Welcome to Vending Machine ==="""
-    pass
+    ctx.obj = Context()

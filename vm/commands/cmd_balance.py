@@ -3,20 +3,16 @@ import click
 from vm.services.VendingMachine import VendingMachine
 
 
-class Context:
-    def __init__(self):
-        self.vm = VendingMachine()
-
-
 @click.group(help='Balance of Vending Machine')
-@click.pass_context
-def cli(ctx):
-    ctx.obj = Context()
+def cli():
+    pass
 
 
 @cli.command(help='Put money into balance')
 @click.argument('amount', type=int)
-def put(amount):
+@click.pass_context
+def put(ctx, amount):
+    click.echo(ctx.obj.vm.current_vending_machine_id)
     click.echo(f"You have put {amount}")
 
 
