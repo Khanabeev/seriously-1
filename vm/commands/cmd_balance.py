@@ -1,4 +1,5 @@
 import click
+from vm.database.db_connection import get_connection
 
 
 @click.group(help='Balance of Vending Machine')
@@ -10,13 +11,22 @@ def cli():
 @click.argument('amount', type=int)
 @click.pass_context
 def put(ctx, amount):
+    # Start transaction
+    sql = get_connection()
+    sql.isolation_level = None
+    c = sql.cursor()
+    c.execute('begin')
+
     try:
         ctx.obj.cus.withdraw_balance(amount=amount)
         ctx.obj.vm.add_balance(amount=amount)
 
         click.echo(f"Customer balance : {ctx.obj.cus.get_current_balance()}")
         click.echo(f"Vending Machine balance : {ctx.obj.vm.get_current_balance()}")
+
+        c.execute('commit')
     except Exception as e:
+        c.execute('rollback')
         click.echo(str(e))
 
 

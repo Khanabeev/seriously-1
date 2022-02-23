@@ -27,11 +27,9 @@ class CustomerRepository:
     def update(self, cus: Customer):
         stm = "UPDATE customers SET balance = ? WHERE uid = ?;"
         self.connection.execute(stm, (int(cus.balance), cus.uid))
-        self.connection.commit()
         self.connection.close()
 
     def add_product(self, customer_id, product_id):
         stm = "INSERT INTO customer_product (customer_id, product_id, created_at) VALUES (?,?, DATE());"
         self.connection.execute(stm, (int(customer_id), int(product_id)))
-        self.connection.commit()
         self.connection.close()
