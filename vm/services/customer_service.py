@@ -8,9 +8,9 @@ class CustomerService:
     def __init__(self):
         self.product_repository = ProductRepository()
         self.customer_repository = CustomerRepository()
-        self.current_customer = self.__get_customer()
+        self.current_customer = self._get_customer()
 
-    def __get_customer(self) -> Customer:
+    def _get_customer(self) -> Customer:
         cus_df = self.customer_repository.get_customer()
         cus = Customer(uid=cus_df["uid"].values[0], balance=cus_df["balance"].values[0])
         return cus

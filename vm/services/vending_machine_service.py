@@ -10,7 +10,7 @@ class VendingMachineService:
     def __init__(self):
         self.product_repository = ProductRepository()
         self.vm_repository = VendingMachineRepository()
-        self.current_vending_machine = self.__get_first_vending_machine()
+        self.current_vending_machine = self._get_vending_machine()
 
     def select_product(self, product_id: int):
         product_df = self.get_product(product_id)
@@ -25,7 +25,7 @@ class VendingMachineService:
 
         return tabulate(result, headers='keys', tablefmt='sqlite')
 
-    def __get_first_vending_machine(self):
+    def _get_vending_machine(self):
         vm_df = self.vm_repository.get_vending_machine()
         vm = VendingMachine(uid=vm_df["uid"].values[0], balance=vm_df["balance"].values[0])
         return vm

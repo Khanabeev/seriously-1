@@ -1,12 +1,13 @@
 ## First assignment - Vending Machine
 
 ### Installation:
+- install dependencies `pip install --editable .`
+- initiate database `python vm/database/init_db.py `
 
-`pip install --editable .`
 
 ### How to use:
 
-Main command `vm` opens menu with available command:
+`vm` opens menu with available command:
 
 ```commandline
 Commands:
@@ -16,14 +17,14 @@ Commands:
   show      Display all products of Vending Machine
 ```
 
-Example of commands:
+Example:
 
 - display all product: `vm show`
-- put balance to Vendor Machine: `vm balance put 100`
-- withdraw balance from Vendor Machine: `vm balance withdraw`
-- display balance of Vendor Machine: `vm balance show`
+- put balance to a Vendor Machine: `vm balance put 100`
+- withdraw a balance from Vending Machine: `vm balance withdraw`
+- display a balance of Vendor Machine: `vm balance show`
 - show customer info: `vm customer info`
-- select the product with id = 1: `vm buy 1`
+- buy a product with id = 1: `vm buy 1`
 
 ### Database model:
 
