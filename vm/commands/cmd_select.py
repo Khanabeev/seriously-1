@@ -22,8 +22,3 @@ def cli(ctx, product):
 def current(ctx):
     result = ctx.obj.vm.add_product(product=ctx.obj.product)
 
-
-@cli.command()
-@click.pass_context
-def forecast(ctx):
-    result = ctx.obj.vm.forecast(product=ctx.obj.product)
