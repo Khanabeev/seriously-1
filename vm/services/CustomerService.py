@@ -17,3 +17,6 @@ class CustomerService:
 
     def show_info(self):
         return f"Customer uid: {self.current_customer.uid}\nCustomer balance: {self.current_customer.balance}"
+
+    def update(self):
+        self.customer_repository.update(self.current_customer)

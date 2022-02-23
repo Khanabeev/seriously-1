@@ -23,9 +23,17 @@ def show(ctx):
 @cli.command(help='Withdraw all money from balance')
 @click.pass_context
 def withdraw(ctx):
-    if ctx.obj.vm.current_vending_machine.balance > 0:
-        ctx.obj.vm.current_vending_machine.balance = 0
-        ctx.obj.vm.update()
+    try:
+        if ctx.obj.vm.current_vending_machine.balance > 0:
+            ctx.obj.cus.current_customer.balance += ctx.obj.vm.current_vending_machine.balance
+            ctx.obj.vm.current_vending_machine.balance = 0
 
-    else:
-        click.echo('Balance is empty, please put money into VM first')
+            ctx.obj.vm.update()
+            ctx.obj.cus.update()
+
+            click.echo(f"Customer balance : {ctx.obj.cus.current_customer.balance}")
+            click.echo(f"Vending Machine balance : {ctx.obj.vm.current_vending_machine.balance}")
+        else:
+            click.echo('Balance is empty, please put money into VM first')
+    except Exception:
+        click.echo('Error during withdraw!')

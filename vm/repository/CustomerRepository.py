@@ -5,6 +5,7 @@ from abc import ABC
 from tabulate import tabulate
 
 from vm.config import PATH_DATABASE
+from vm.models.Customer import Customer
 from vm.repository.AbstractRepository import AbstractRepository
 from vm.models.VendingMachine import VendingMachine
 
@@ -30,10 +31,9 @@ class CustomerRepository(AbstractRepository, ABC):
 
         return result
 
-    def update(self, vm: VendingMachine):
-
-        stm = "UPDATE vending_machines SET balance = ? WHERE uid = ?;"
-        self.connection.execute(stm, (0, vm.uid))
+    def update(self, cus: Customer):
+        stm = "UPDATE customers SET balance = ? WHERE uid = ?;"
+        self.connection.execute(stm, (int(cus.balance), cus.uid))
         self.connection.commit()
         self.connection.close()
 
