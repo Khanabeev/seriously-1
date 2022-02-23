@@ -39,6 +39,11 @@ def show(ctx):
 @cli.command(help='Withdraw all money from balance')
 @click.pass_context
 def withdraw(ctx):
+    # Start transaction
+    sql = get_connection()
+    sql.isolation_level = None
+    c = sql.cursor()
+    c.execute('begin')
     try:
         if not ctx.obj.vm.is_balance_empty():
             current_balance = ctx.obj.vm.get_current_balance()
@@ -47,7 +52,9 @@ def withdraw(ctx):
 
             click.echo(f"Customer balance : {ctx.obj.cus.get_current_balance()}")
             click.echo(f"Vending Machine balance : {ctx.obj.vm.get_current_balance()}")
+            c.execute('commit')
         else:
             click.echo('Balance is empty, please put money into Vending Machine first')
     except Exception:
+        c.execute('rollback')
         click.echo('Error during withdraw!')
