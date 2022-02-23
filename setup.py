@@ -1,7 +1,7 @@
 import sqlite3
 
 from setuptools import setup, find_packages
-from vm.config import PATH_SQLITE_SCRIPT, PATH_DATABASE
+from vm.config import PATH_SQLITE_CREATE, PATH_SQLITE_SEED, PATH_DATABASE
 
 
 def read_requirements():
@@ -29,7 +29,11 @@ try:
 
     cursor = sqlite_connection.cursor()
 
-    with open(PATH_SQLITE_SCRIPT, 'r') as sqlite_file:
+    with open(PATH_SQLITE_CREATE, 'r') as sqlite_file:
+        sql_script = sqlite_file.read()
+        cursor.executescript(sql_script)
+
+    with open(PATH_SQLITE_SEED, 'r') as sqlite_file:
         sql_script = sqlite_file.read()
         cursor.executescript(sql_script)
 
