@@ -1,4 +1,4 @@
-CREATE TABLE products
+CREATE TABLE IF NOT EXISTS products
 (
   id         INTEGER PRIMARY KEY,
   name       TEXT NOT NULL,
@@ -6,7 +6,7 @@ CREATE TABLE products
   created_at TEXT NOT NULL
 );
 
-CREATE TABLE customers
+CREATE TABLE IF NOT EXISTS customers
 (
   id         INTEGER PRIMARY KEY,
   uid        TEXT NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE customers
   created_at TEXT NOT NULL
 );
 
-CREATE TABLE vending_machines
+CREATE TABLE IF NOT EXISTS vending_machines
 (
   id         INTEGER PRIMARY KEY,
   uid        TEXT NOT NULL,
@@ -22,7 +22,7 @@ CREATE TABLE vending_machines
   created_at TEXT NOT NULL
 );
 
-CREATE TABLE customer_product
+CREATE TABLE IF NOT EXISTS customer_product
 (
   id          INTEGER PRIMARY KEY,
   customer_id INTEGER NOT NULL,
@@ -33,7 +33,7 @@ CONSTRAINT fk_customer_id FOREIGN KEY (customer_id) REFERENCES customers(id) ON 
 CONSTRAINT fk_product_id FOREIGN KEY(product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
-CREATE TABLE product_vending_machine
+CREATE TABLE IF NOT EXISTS product_vending_machine
 (
   id          INTEGER PRIMARY KEY,
   vending_machine_id INTEGER NOT NULL,
