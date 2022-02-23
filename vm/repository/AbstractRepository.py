@@ -8,7 +8,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get(self, repository):
+    def get(self, obj_id):
         raise NotImplementedError
 
     @abc.abstractmethod

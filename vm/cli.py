@@ -2,12 +2,12 @@ import os
 
 import click
 
-from vm.services.VendingMachine import VendingMachine
+from vm.services.VendingMachineService import VendingMachineService
 
 
 class Context:
     def __init__(self):
-        self.vm = VendingMachine()
+        self.vm = VendingMachineService()
 
 
 class ComplexCLI(click.MultiCommand):

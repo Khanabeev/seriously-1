@@ -1,7 +1,5 @@
 import click
 
-from vm.services.VendingMachine import VendingMachine
-
 
 @click.group(help='Balance of Vending Machine')
 def cli():
