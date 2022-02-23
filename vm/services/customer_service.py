@@ -8,10 +8,10 @@ class CustomerService:
     def __init__(self):
         self.product_repository = ProductRepository()
         self.customer_repository = CustomerRepository()
-        self.current_customer = self.__get_first_customer()
+        self.current_customer = self.__get_customer()
 
-    def __get_first_customer(self) -> Customer:
-        cus_df = self.customer_repository.first()
+    def __get_customer(self) -> Customer:
+        cus_df = self.customer_repository.get_customer()
         cus = Customer(uid=cus_df["uid"].values[0], balance=cus_df["balance"].values[0])
         return cus
 
@@ -43,5 +43,5 @@ class CustomerService:
         self.customer_repository.add_product(product_id=product_id, customer_id=self.get_customer_id())
 
     def get_customer_id(self):
-        vm_df = self.customer_repository.first(self.current_customer.uid)
+        vm_df = self.customer_repository.get_customer(self.current_customer.uid)
         return vm_df["id"].values[0]

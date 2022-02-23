@@ -2,8 +2,8 @@ import os
 
 import click
 
-from vm.services.CustomerService import CustomerService
-from vm.services.VendingMachineService import VendingMachineService
+from vm.services.customer_service import CustomerService
+from vm.services.vending_machine_service import VendingMachineService
 
 
 class Context:

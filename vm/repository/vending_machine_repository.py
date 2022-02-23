@@ -1,14 +1,8 @@
-import sqlite3
 import pandas as pd
+from vm.database.db_connection import get_connection
 
 from tabulate import tabulate
-
-from vm.config import PATH_DATABASE
 from vm.models.vending_machine import VendingMachine
-
-
-def get_connection():
-    return sqlite3.connect(PATH_DATABASE)
 
 
 class VendingMachineRepository:
@@ -23,7 +17,7 @@ class VendingMachineRepository:
 
         return tabulate(result, headers='keys', tablefmt='sqlite')
 
-    def first(self, uid: str = '') -> pd.DataFrame:
+    def get_vending_machine(self, uid: str = '') -> pd.DataFrame:
         if uid == '':
             stm = "SELECT id, uid, balance FROM vending_machines LIMIT 1"
             query = self.connection.execute(stm)

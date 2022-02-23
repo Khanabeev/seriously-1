@@ -1,10 +1,5 @@
-import sqlite3
 import pandas as pd
-from vm.config import PATH_DATABASE
-
-
-def get_connection():
-    return sqlite3.connect(PATH_DATABASE)
+from vm.database.db_connection import get_connection
 
 
 class ProductRepository:
@@ -21,9 +16,6 @@ class ProductRepository:
         result = pd.DataFrame.from_records(data=query.fetchall(), columns=cols, index='id')
 
         return result
-
-    def update(self, obj):
-        pass
 
     def get_product(self, product_id, vending_machine_id) -> pd.DataFrame:
         stm = "SELECT id, name, price FROM products WHERE id IN (SELECT id FROM product_vending_machine WHERE " \

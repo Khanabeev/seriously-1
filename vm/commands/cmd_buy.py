@@ -1,7 +1,7 @@
 import click
 
 
-@click.command(help='Select product by id')
+@click.command(help='Purchase a product by id')
 @click.pass_context
 @click.argument('product_id', type=int)
 def cli(ctx, product_id):
@@ -11,4 +11,4 @@ def cli(ctx, product_id):
         ctx.obj.cus.add_product(product_id=product_df["id"].values[0])
         click.echo(f"You have purchased: {product_df['name'].values[0]}")
     except Exception as e:
-        click.echo(getattr(e, 'message', str(e)))
+        click.echo(str(e))

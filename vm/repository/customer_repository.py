@@ -1,13 +1,7 @@
-import sqlite3
 import pandas as pd
-from abc import ABC
+from vm.database.db_connection import get_connection
 
-from vm.config import PATH_DATABASE
 from vm.models.customer import Customer
-
-
-def get_connection():
-    return sqlite3.connect(PATH_DATABASE)
 
 
 class CustomerRepository:
@@ -17,7 +11,7 @@ class CustomerRepository:
     def get_all(self):
         pass
 
-    def first(self, uid: str = '') -> pd.DataFrame:
+    def get_customer(self, uid: str = '') -> pd.DataFrame:
         if uid == '':
             stm = "SELECT id, uid, balance FROM customers LIMIT 1"
             query = self.connection.execute(stm)

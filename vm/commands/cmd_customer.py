@@ -1,6 +1,6 @@
 import click
 
-from vm.services.VendingMachineService import VendingMachineService
+from vm.services.vending_machine_service import VendingMachineService
 
 
 @click.group(help='Show customer info')
