@@ -1,3 +1,4 @@
+import pandas as pd
 from tabulate import tabulate
 
 from vm.models.vending_machine import VendingMachine
@@ -12,7 +13,7 @@ class VendingMachineService:
         self.vm_repository = VendingMachineRepository()
         self.current_vending_machine = self._get_vending_machine()
 
-    def select_product(self, product_id: int):
+    def select_product(self, product_id: int) -> pd.DataFrame:
         product_df = self.get_product(product_id)
         if len(product_df) > 0:
             return product_df
@@ -25,10 +26,9 @@ class VendingMachineService:
 
         return tabulate(result, headers='keys', tablefmt='sqlite')
 
-    def _get_vending_machine(self):
+    def _get_vending_machine(self) -> VendingMachine:
         vm_df = self.vm_repository.get_vending_machine()
-        vm = VendingMachine(uid=vm_df["uid"].values[0], balance=vm_df["balance"].values[0])
-        return vm
+        return VendingMachine(uid=vm_df["uid"].values[0], balance=vm_df["balance"].values[0])
 
     def update(self):
         self.vm_repository.update(self.current_vending_machine)

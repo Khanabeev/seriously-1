@@ -1,8 +1,11 @@
 import sqlite3
 import os.path
 
-from vm.config import PATH_SQLITE_SEED, PATH_SQLITE_CREATE, PATH_DATABASE
+from vm.config import PATH_DATABASE
 from vm.database.db_connection import get_connection
+
+PATH_SQLITE_CREATE = './vm/database/sqlite_create_tables.sql'
+PATH_SQLITE_SEED = './vm/database/sqlite_seed_tables.sql'
 
 if not os.path.isfile(PATH_DATABASE):
     try:

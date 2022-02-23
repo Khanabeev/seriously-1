@@ -8,9 +8,6 @@ class CustomerRepository:
     def __init__(self):
         self.connection = get_connection()
 
-    def get_all(self):
-        pass
-
     def get_customer(self, uid: str = '') -> pd.DataFrame:
         if uid == '':
             stm = "SELECT id, uid, balance FROM customers LIMIT 1"
@@ -24,12 +21,12 @@ class CustomerRepository:
 
         return result
 
-    def update(self, cus: Customer):
+    def update(self, cus: Customer) -> None:
         stm = "UPDATE customers SET balance = ? WHERE uid = ?;"
         self.connection.execute(stm, (int(cus.balance), cus.uid))
         self.connection.close()
 
-    def add_product(self, customer_id, product_id):
+    def add_product(self, customer_id, product_id) -> None:
         stm = "INSERT INTO customer_product (customer_id, product_id, created_at) VALUES (?,?, DATE());"
         self.connection.execute(stm, (int(customer_id), int(product_id)))
         self.connection.close()

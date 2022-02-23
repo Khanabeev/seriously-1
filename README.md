@@ -1,9 +1,9 @@
 ## First assignment - Vending Machine
 
 ### Installation:
-- install dependencies `pip install --editable .`
-- initiate database `python vm/database/init_db.py `
 
+- install dependencies `pip install --editable .`
+- initialize database `python vm/database/init_db.py `
 
 ### How to use:
 
@@ -31,3 +31,21 @@ Example:
 Database: SQLite
 
 ![Image](db_image.png)
+
+### Scalability
+
+If an application gets bigger there are few solutions that can help to scale it:
+
+- Database, `vending_machine_service.py` and `customer_service.py` are ready for multiple customers and vending machines
+  entries. If it's necessary we can add a command like `vm set vending_machine <uid>` or `vm set customer <uid>` in
+  order to change customer or vending machine;
+- Due to `vending_machine_repository.py`,`customer_repository.py` and `product_repository.py` we can implement different
+  databases, for instance, we can replace SQLite with PostgreSQL;
+- Inside `db_connection.py` we can change connection to another database. Due to the fact than we have used only SQL
+  queries in repositories, change connection might be easy. Besides, we can replace `sqlite3` package with more
+  sophisticated `sqlalchemy`;
+- New commands are automatically parsed in `vm/commands` directory;
+- If someday we want to change seed script for database, we will need upload it to `vm/database` directory and indicate
+  a filename in config (if we rename it of course);
+- We should set environment variables (like `export NEW_VAR=new_variable`) in order to configurate our app from outside
+  and don't touch the code. 
