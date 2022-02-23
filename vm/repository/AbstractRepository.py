@@ -1,5 +1,6 @@
 import abc
 
+
 class AbstractRepository(abc.ABC):
 
     @abc.abstractmethod
@@ -11,5 +12,5 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def list(self, repository):
+    def show_all(self):
         raise NotImplementedError
