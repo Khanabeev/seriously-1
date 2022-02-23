@@ -27,3 +27,6 @@ class VendingMachineService:
         vm_df = self.vm_repository.first()
         vm = VendingMachine(uid=vm_df["uid"].values[0], balance=vm_df["balance"].values[0])
         return vm
+
+    def update(self):
+        self.vm_repository.update(self.current_vending_machine)

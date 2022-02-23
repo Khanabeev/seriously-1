@@ -6,6 +6,7 @@ from tabulate import tabulate
 
 from vm.config import PATH_DATABASE
 from vm.repository.AbstractRepository import AbstractRepository
+from vm.models.VendingMachine import VendingMachine
 
 
 def get_connection():
@@ -17,27 +18,30 @@ class VendingMachineRepository(AbstractRepository, ABC):
         self.connection = get_connection()
 
     def show_all(self):
-        query = """
+        stm = """
             SELECT * FROM vending_machines
         """
-        query = self.connection.execute(query)
+        query = self.connection.execute(stm)
         cols = [column[0] for column in query.description]
         result = pd.DataFrame.from_records(data=query.fetchall(), columns=cols, index='id')
 
         return tabulate(result, headers='keys', tablefmt='sqlite')
 
-    def add(self, obj):
-        pass
-
-    def get(self, obj_id):
-        pass
-
     def first(self):
-        query = """
+        stm = """
                     SELECT id, uid, balance FROM vending_machines LIMIT 1
                 """
-        query = self.connection.execute(query)
+        query = self.connection.execute(stm)
         cols = [column[0] for column in query.description]
         result = pd.DataFrame.from_records(data=query.fetchall(), columns=cols, index='id')
 
         return result
+
+    def update(self, vm: VendingMachine):
+
+        stm = "UPDATE vending_machines SET balance = ? WHERE uid = ?;"
+        self.connection.execute(stm, (0, vm.uid))
+        self.connection.commit()
+        self.connection.close()
+
+        return

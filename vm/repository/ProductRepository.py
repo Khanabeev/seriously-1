@@ -27,8 +27,5 @@ class ProductRepository(AbstractRepository, ABC):
 
         return tabulate(result, headers='keys', tablefmt='sqlite')
 
-    def add(self, product: Product):
-        pass
-
-    def get(self, product_id: int):
+    def update(self, obj):
         pass

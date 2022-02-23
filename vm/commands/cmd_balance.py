@@ -10,7 +10,7 @@ def cli():
 @click.argument('amount', type=int)
 @click.pass_context
 def put(ctx, amount):
-    click.echo(ctx.obj.vm.current_vending_machine_id)
+    click.echo(ctx.obj.vm.current_vending_machine)
     click.echo(f"You have put {amount}")
 
 
@@ -24,6 +24,8 @@ def show(ctx):
 @click.pass_context
 def withdraw(ctx):
     if ctx.obj.vm.current_vending_machine.balance > 0:
-        click.echo('Add to customer balance')
+        ctx.obj.vm.current_vending_machine.balance = 0
+        ctx.obj.vm.update()
+
     else:
         click.echo('Balance is empty, please put money into VM first')
