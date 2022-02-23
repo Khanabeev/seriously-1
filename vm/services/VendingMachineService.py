@@ -11,17 +11,12 @@ class VendingMachineService:
         self.vm_repository = VendingMachineRepository()
         self.current_vending_machine = self.__get_first_vending_machine()
 
-    def add_products(self, product: Product):
-        pass
-
-    def remove_product(self, product_id: int):
-        pass
-
-    def show_one_product(self, product_id: int):
+    def select_product(self, product_id: int):
         pass
 
     def show_all_products(self):
-        return self.product_repository.show_all()
+        vm_id = self.get_vending_machine_id()
+        return self.product_repository.show_all(vm_id)
 
     def __get_first_vending_machine(self):
         vm_df = self.vm_repository.first()
@@ -50,3 +45,7 @@ class VendingMachineService:
 
     def get_current_balance(self) -> int:
         return self.current_vending_machine.balance
+
+    def get_vending_machine_id(self):
+        vm_df = self.vm_repository.first(self.current_vending_machine.uid)
+        return vm_df["id"].values[0]

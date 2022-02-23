@@ -1,24 +1,8 @@
 import click
 
-from vm.services.VendingMachineService import VendingMachineService
 
-
-class Context:
-    def __init__(self, product: int):
-        self.product = product
-        self.vm = VendingMachineService()
-
-
-@click.group(help='Select product')
-@click.option('-p', '--product', type=int, help='Product number')
+@click.command(help='Select product id')
 @click.pass_context
-def cli(ctx, product):
-    """Select product"""
-    ctx.obj = Context(product)
-
-
-@cli.command()
-@click.pass_context
-def current(ctx):
-    result = ctx.obj.vm.add_product(product=ctx.obj.product)
-
+@click.argument('product_id', type=int)
+def cli(ctx, product_id):
+    pass

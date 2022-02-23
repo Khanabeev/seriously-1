@@ -17,11 +17,11 @@ class ProductRepository(AbstractRepository, ABC):
     def __init__(self):
         self.connection = get_connection()
 
-    def show_all(self):
-        query = """
-            SELECT id, name, price FROM products
-        """
-        query = self.connection.execute(query)
+    def show_all(self, vending_machine_id):
+        stm = "SELECT id, name, price FROM products WHERE id IN (SELECT id FROM product_vending_machine WHERE " \
+              "vending_machine_id=?); "
+
+        query = self.connection.execute(stm, (int(vending_machine_id),))
         cols = [column[0] for column in query.description]
         result = pd.DataFrame.from_records(data=query.fetchall(), columns=cols, index='id')
 
@@ -29,3 +29,10 @@ class ProductRepository(AbstractRepository, ABC):
 
     def update(self, obj):
         pass
+
+    def get(self, product_id: int) -> pd.DataFrame:
+        stm = "SELECT id, name, price FROM products WHERE id=?"
+        query = self.connection.execute(stm, (product_id,))
+
+        cols = [column[0] for column in query.description]
+        return pd.DataFrame.from_records(data=query.fetchall(), columns=cols, index='id')
