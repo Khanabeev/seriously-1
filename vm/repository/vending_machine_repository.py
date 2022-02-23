@@ -32,4 +32,5 @@ class VendingMachineRepository:
     def update(self, vm: VendingMachine) -> None:
         stm = "UPDATE vending_machines SET balance = ? WHERE uid = ?;"
         self.connection.execute(stm, (int(vm.balance), vm.uid))
+        self.connection.commit()
         self.connection.close()
