@@ -1,19 +1,17 @@
 import sqlite3
 import pandas as pd
-from abc import ABC
 
 from tabulate import tabulate
 
 from vm.config import PATH_DATABASE
-from vm.repository.AbstractRepository import AbstractRepository
-from vm.models.VendingMachine import VendingMachine
+from vm.models.vending_machine import VendingMachine
 
 
 def get_connection():
     return sqlite3.connect(PATH_DATABASE)
 
 
-class VendingMachineRepository(AbstractRepository, ABC):
+class VendingMachineRepository:
     def __init__(self):
         self.connection = get_connection()
 

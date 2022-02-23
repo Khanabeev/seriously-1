@@ -1,18 +1,13 @@
 import sqlite3
 import pandas as pd
-from abc import ABC
-from tabulate import tabulate
 from vm.config import PATH_DATABASE
-from vm.models.Product import Product
-
-from vm.repository.AbstractRepository import AbstractRepository
 
 
 def get_connection():
     return sqlite3.connect(PATH_DATABASE)
 
 
-class ProductRepository(AbstractRepository, ABC):
+class ProductRepository:
 
     def __init__(self):
         self.connection = get_connection()

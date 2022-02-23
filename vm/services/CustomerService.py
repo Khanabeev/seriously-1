@@ -1,6 +1,6 @@
-from vm.models.Customer import Customer
-from vm.repository.CustomerRepository import CustomerRepository
-from vm.repository.ProductRepository import ProductRepository
+from vm.models.customer import Customer
+from vm.repository.customer_repository import CustomerRepository
+from vm.repository.product_repository import ProductRepository
 
 
 class CustomerService:

@@ -1,8 +1,8 @@
 from tabulate import tabulate
 
-from vm.models.VendingMachine import VendingMachine
-from vm.repository.ProductRepository import ProductRepository
-from vm.repository.VendingMachineRepository import VendingMachineRepository
+from vm.models.vending_machine import VendingMachine
+from vm.repository.product_repository import ProductRepository
+from vm.repository.vending_machine_repository import VendingMachineRepository
 
 
 class VendingMachineService:

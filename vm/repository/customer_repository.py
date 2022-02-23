@@ -3,15 +3,14 @@ import pandas as pd
 from abc import ABC
 
 from vm.config import PATH_DATABASE
-from vm.models.Customer import Customer
-from vm.repository.AbstractRepository import AbstractRepository
+from vm.models.customer import Customer
 
 
 def get_connection():
     return sqlite3.connect(PATH_DATABASE)
 
 
-class CustomerRepository(AbstractRepository, ABC):
+class CustomerRepository:
     def __init__(self):
         self.connection = get_connection()
 
