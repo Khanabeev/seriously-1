@@ -15,10 +15,15 @@ def put(ctx, amount):
 
 
 @cli.command(help='Display balance')
-def show():
-    click.echo(f"This is a balance of VM")
+@click.pass_context
+def show(ctx):
+    click.echo(f"Current balance: {ctx.obj.vm.current_vending_machine.balance}")
 
 
 @cli.command(help='Withdraw all money from balance')
-def withdraw():
-    click.echo(f"This is a balance of VM")
+@click.pass_context
+def withdraw(ctx):
+    if ctx.obj.vm.current_vending_machine.balance > 0:
+        click.echo('Add to customer balance')
+    else:
+        click.echo('Balance is empty, please put money into VM first')

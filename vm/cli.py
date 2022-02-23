@@ -2,12 +2,14 @@ import os
 
 import click
 
+from vm.services.CustomerService import CustomerService
 from vm.services.VendingMachineService import VendingMachineService
 
 
 class Context:
     def __init__(self):
         self.vm = VendingMachineService()
+        self.cus = CustomerService()
 
 
 class ComplexCLI(click.MultiCommand):
