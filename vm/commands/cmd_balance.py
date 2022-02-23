@@ -10,14 +10,19 @@ def cli():
 @click.argument('amount', type=int)
 @click.pass_context
 def put(ctx, amount):
-    click.echo(ctx.obj.vm)
-    click.echo(f"You have put {amount}")
+    try:
+        ctx.obj.cus.withdraw_balance(amount=amount)
+        ctx.obj.vm.add_balance(amount=amount)
+    except ValueError:
+        click.echo(f"Customer balance is not enough, current customer balance is: {ctx.obj.cus.get_current_balance()}")
+    except NameError:
+        click.echo(NameError.name)
 
 
 @cli.command(help='Display balance')
 @click.pass_context
 def show(ctx):
-    click.echo(f"Current balance: {ctx.obj.vm.current_vending_machine.balance}")
+    click.echo(f"Current Vending Machine balance: {ctx.obj.vm.current_vending_machine.balance}")
 
 
 @cli.command(help='Withdraw all money from balance')
@@ -25,7 +30,7 @@ def show(ctx):
 def withdraw(ctx):
     try:
         if not ctx.obj.vm.is_balance_empty():
-            ctx.obj.cus.add_money(ctx.obj.vm.withdraw_money())
+            ctx.obj.cus.add_balance(ctx.obj.vm.withdraw_balance())
 
             click.echo(f"Customer balance : {ctx.obj.cus.get_current_balance()}")
             click.echo(f"Vending Machine balance : {ctx.obj.vm.get_current_balance()}")

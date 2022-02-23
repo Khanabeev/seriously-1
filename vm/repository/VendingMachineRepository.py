@@ -38,9 +38,8 @@ class VendingMachineRepository(AbstractRepository, ABC):
         return result
 
     def update(self, vm: VendingMachine):
-
         stm = "UPDATE vending_machines SET balance = ? WHERE uid = ?;"
-        self.connection.execute(stm, (0, vm.uid))
+        self.connection.execute(stm, (int(vm.balance), vm.uid))
         self.connection.commit()
         self.connection.close()
 

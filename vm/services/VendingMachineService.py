@@ -31,12 +31,14 @@ class VendingMachineService:
     def update(self):
         self.vm_repository.update(self.current_vending_machine)
 
-    def add_money(self, amount: int):
+    def add_balance(self, amount: int):
         if amount > 0:
             self.current_vending_machine.balance += amount
             self.update()
+        else:
+            raise NameError('Amount should be positive number')
 
-    def withdraw_money(self) -> int:
+    def withdraw_balance(self) -> int:
         balance = self.current_vending_machine.balance
         self.current_vending_machine.balance = 0
         self.update()

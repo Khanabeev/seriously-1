@@ -21,10 +21,19 @@ class CustomerService:
     def update(self):
         self.customer_repository.update(self.current_customer)
 
-    def add_money(self, amount: int):
+    def add_balance(self, amount: int):
         if amount > 0:
             self.current_customer.balance += amount
             self.update()
+
+    def withdraw_balance(self, amount: int) -> int:
+        if self.current_customer.balance >= amount:
+            self.current_customer.balance -= amount
+            self.update()
+        else:
+            raise ValueError
+
+        return self.current_customer.balance
 
     def get_current_balance(self) -> int:
         return self.current_customer.balance
