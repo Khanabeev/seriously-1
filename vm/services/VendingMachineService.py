@@ -30,3 +30,21 @@ class VendingMachineService:
 
     def update(self):
         self.vm_repository.update(self.current_vending_machine)
+
+    def add_money(self, amount: int):
+        if amount > 0:
+            self.current_vending_machine.balance += amount
+            self.update()
+
+    def withdraw_money(self) -> int:
+        balance = self.current_vending_machine.balance
+        self.current_vending_machine.balance = 0
+        self.update()
+
+        return balance
+
+    def is_balance_empty(self) -> bool:
+        return self.current_vending_machine.balance <= 0
+
+    def get_current_balance(self) -> int:
+        return self.current_vending_machine.balance

@@ -10,7 +10,7 @@ def cli():
 @click.argument('amount', type=int)
 @click.pass_context
 def put(ctx, amount):
-    click.echo(ctx.obj.vm.current_vending_machine)
+    click.echo(ctx.obj.vm)
     click.echo(f"You have put {amount}")
 
 
@@ -24,16 +24,12 @@ def show(ctx):
 @click.pass_context
 def withdraw(ctx):
     try:
-        if ctx.obj.vm.current_vending_machine.balance > 0:
-            ctx.obj.cus.current_customer.balance += ctx.obj.vm.current_vending_machine.balance
-            ctx.obj.vm.current_vending_machine.balance = 0
+        if not ctx.obj.vm.is_balance_empty():
+            ctx.obj.cus.add_money(ctx.obj.vm.withdraw_money())
 
-            ctx.obj.vm.update()
-            ctx.obj.cus.update()
-
-            click.echo(f"Customer balance : {ctx.obj.cus.current_customer.balance}")
-            click.echo(f"Vending Machine balance : {ctx.obj.vm.current_vending_machine.balance}")
+            click.echo(f"Customer balance : {ctx.obj.cus.get_current_balance()}")
+            click.echo(f"Vending Machine balance : {ctx.obj.vm.get_current_balance()}")
         else:
-            click.echo('Balance is empty, please put money into VM first')
+            click.echo('Balance is empty, please put money into Vending Machine first')
     except Exception:
         click.echo('Error during withdraw!')
