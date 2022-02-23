@@ -2,7 +2,7 @@
 
 ### Installation:
 
-pip install --editable .
+`pip install --editable .`
 
 ### How to use:
 
