@@ -41,7 +41,9 @@ def show(ctx):
 def withdraw(ctx):
     try:
         if not ctx.obj.vm.is_balance_empty():
-            ctx.obj.cus.add_balance(ctx.obj.vm.withdraw_balance(ctx.obj.vm.get_current_balance()))
+            current_balance = ctx.obj.vm.get_current_balance()
+            ctx.obj.vm.withdraw_balance(current_balance)
+            ctx.obj.cus.add_balance(current_balance)
 
             click.echo(f"Customer balance : {ctx.obj.cus.get_current_balance()}")
             click.echo(f"Vending Machine balance : {ctx.obj.vm.get_current_balance()}")
