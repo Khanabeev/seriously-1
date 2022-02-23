@@ -2,12 +2,9 @@ import sqlite3
 import pandas as pd
 from abc import ABC
 
-from tabulate import tabulate
-
 from vm.config import PATH_DATABASE
 from vm.models.Customer import Customer
 from vm.repository.AbstractRepository import AbstractRepository
-from vm.models.VendingMachine import VendingMachine
 
 
 def get_connection():

@@ -31,7 +31,8 @@ class CustomerService:
             self.current_customer.balance -= amount
             self.update()
         else:
-            raise ValueError
+            raise Exception(
+                f"Customer balance is not enough, current customer balance is: {self.current_customer.balance}")
 
         return self.current_customer.balance
 

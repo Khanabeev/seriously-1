@@ -38,14 +38,17 @@ class VendingMachineService:
             self.current_vending_machine.balance += amount
             self.update()
         else:
-            raise NameError('Amount should be positive number')
+            raise Exception('Amount should be positive number')
 
     def withdraw_balance(self, amount: int = 0) -> int:
         balance = self.current_vending_machine.balance
-        self.current_vending_machine.balance -= amount
-        self.update()
+        if balance - amount >= 0:
+            self.current_vending_machine.balance -= amount
+            self.update()
+        else:
+            raise Exception(f"Not enough balance in Vendor Machine, current balance is: {balance}")
 
-        return balance
+        return self.current_vending_machine.balance
 
     def is_balance_empty(self) -> bool:
         return self.current_vending_machine.balance <= 0

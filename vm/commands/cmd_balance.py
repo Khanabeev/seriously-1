@@ -16,10 +16,8 @@ def put(ctx, amount):
 
         click.echo(f"Customer balance : {ctx.obj.cus.get_current_balance()}")
         click.echo(f"Vending Machine balance : {ctx.obj.vm.get_current_balance()}")
-    except ValueError:
-        click.echo(f"Customer balance is not enough, current customer balance is: {ctx.obj.cus.get_current_balance()}")
-    except NameError:
-        click.echo(NameError.name)
+    except Exception as e:
+        click.echo(getattr(e, 'message', str(e)))
 
 
 @cli.command(help='Display balance')
