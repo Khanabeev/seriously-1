@@ -8,5 +8,6 @@ def cli(ctx, product_id):
     try:
         product_df = ctx.obj.vm.select_product(product_id)
         ctx.obj.vm.withdraw_balance(product_df["price"].values[0])
+        ctx.obj.cus.add_product(product_id=product_df["id"].values[0])
     except Exception as e:
         click.echo(getattr(e, 'message', str(e)))

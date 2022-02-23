@@ -40,8 +40,8 @@ class CustomerRepository(AbstractRepository, ABC):
         self.connection.commit()
         self.connection.close()
 
-    def add_product(self, customer_id: int, product_id: int):
-        stm = "INSERT INTO customer_product (customer_id, product_id) VALUES (?,?) "
+    def add_product(self, customer_id, product_id):
+        stm = "INSERT INTO customer_product (customer_id, product_id, created_at) VALUES (?,?, DATE());"
         self.connection.execute(stm, (int(customer_id), int(product_id)))
         self.connection.commit()
         self.connection.close()
