@@ -1,4 +1,4 @@
-## First assignment - Vending Machine
+## Vending Machine
 
 ### Installation:
 
